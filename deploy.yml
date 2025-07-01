@@ -1,0 +1,26 @@
+name: Deploy to SFTP Server
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    steps:
+      # Step 1: Check out your repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Upload files via SFTP
+      - name: Deploy to SFTP Server
+        uses: pressidium/lftp-mirror-action@v1
+        with:
+          host: ${{ secrets.SFTP_HOST }}
+          port: 2022 # Your SFTP server port
+          user: ${{ secrets.SFTP_USER }}
+          pass: ${{ secrets.SFTP_PASSWORD }}
+          localDir: './' # Upload everything in the repo root
+          remoteDir: '/webroot' # The remote directory to upload to
+          reverse: true # Ensure it's an upload operation
