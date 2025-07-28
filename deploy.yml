@@ -22,5 +22,6 @@ jobs:
           user: ${{ secrets.SFTP_USER }}
           pass: ${{ secrets.SFTP_PASSWORD }}
           localDir: './' # Upload everything in the repo root
+          exclude: '.github/* *.md tests/*' # Exclude specific directories and files
           remoteDir: '/webroot' # The remote directory to upload to
           reverse: true # Ensure it's an upload operation
